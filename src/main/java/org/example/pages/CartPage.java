@@ -4,19 +4,37 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class CartPage extends BasePage{
+public class CartPage extends BasePage {
 
-    private final By TITLECART = By.cssSelector(".title");
+    LoginPage loginPage = new LoginPage(driver);
+    ProductsPage productsPage = new ProductsPage(driver);
+    WebElement continueShoppingButton = driver.findElement(By.xpath("//button[@id='continue-shopping']"));
 
     public CartPage(WebDriver driver) {
         super(driver);
     }
 
-    public void open(){
+    public void open() {
         driver.get(BASE_URL + "cart.html");
     }
 
-    public WebElement getTITLE() {
-        return driver.findElement(TITLECART);
+    public void deleteProductFromCart() {
+        driver.findElement(By.xpath("//div[@class='item_pricebar']/button"));
     }
+
+    public String productNameCheck() {
+        String addedProduct = driver.findElement(By.xpath("//div[@class='inventory_item_name']")).getText();
+        return addedProduct;
+    }
+
+    public void addProductToCartAsValid(String product) {
+        loginPage.open();
+        loginPage.loginAsValidUser();
+        productsPage.addToCart(product);
+    }
+
+    public void goToCheckout() {
+        driver.findElement(By.xpath("//button[@id='checkout']"));
+    }
+
 }
