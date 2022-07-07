@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class CartTest extends BaseTest{
@@ -20,9 +21,10 @@ public class CartTest extends BaseTest{
 
     @Test
     public void removeAddedProductFromCart(){
-        cartPage.addProductToCartAsValid("Sauce Labs Bike Light");
+        cartPage.addProductToCartAsValid(product);
         cartPage.open();
         cartPage.deleteProductFromCart();
+        assertTrue(driver.findElement(By.xpath("//div[@class='inventory_item_name']")).isDisplayed(),"Not displayed");
     }
 
     @Test
@@ -38,9 +40,17 @@ public class CartTest extends BaseTest{
     public void returnToContinueShopping(){
         loginPage.open();
         loginPage.loginAsValidUser();
-        productsPage.open();
-        cartPage.continueShoppingButton.click();
+        cartPage.open();
+        cartPage.continueShopping();
         driver.findElement(By.cssSelector(".title"));
-        assertTrue(productsPage.getTITLE().isDisplayed(), "User was not logged in");
+        assertTrue(productsPage.getTITLE().isDisplayed(), "User not return to product cart");
+    }
+
+    @Test
+    public void checkAddedProductName(){
+        loginPage.open();
+        loginPage.loginAsValidUser();
+        cartPage.open();
+        assertEquals(cartPage.checkTitle(),"YOUR CART");
     }
 }
