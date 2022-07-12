@@ -8,7 +8,6 @@ public class CartPage extends BasePage {
 
     LoginPage loginPage = new LoginPage(driver);
     ProductsPage productsPage = new ProductsPage(driver);
-    WebElement continueShoppingButton = driver.findElement(By.xpath("//button[@id='continue-shopping']"));
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -37,4 +36,12 @@ public class CartPage extends BasePage {
         driver.findElement(By.xpath("//button[@id='checkout']"));
     }
 
+    public void continueShopping(){
+        driver.findElement(By.xpath("//button[@id='continue-shopping']")).click();
+    }
+
+    public String checkTitle(){
+        String tittle = driver.findElement(By.xpath("//span[@class='title']")).getText();
+        return tittle;
+    }
 }
