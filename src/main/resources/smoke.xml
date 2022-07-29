@@ -7,11 +7,5 @@
             <class name="org.example.CartTest"/>
         </classes>
     </test>
-    <test name="Edge">
-        <parameter name="browser" value="edge"/>
-        <classes>
-            <class name="org.example.CartTest"/>
-        </classes>
-    </test>
 </suite>
 
