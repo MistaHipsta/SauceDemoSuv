@@ -2,37 +2,58 @@ package org.example.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class LoginPage  extends BasePage{
+public class LoginPage extends BasePage {
 
+    private static final String LOGIN_BUTTON_ID = "login-button";
 
-    private final By USER_NAME_INPUT = By.id("user-name");
-    private final By PASSWORD_INPUT = By.id("password");
-    private final By LOGIN_BUTTON = By.id("login-button");
-    private final By ERROR = By.cssSelector("h3[data-test=error]");
+    @FindBy(id = "user-name")
+    private WebElement userNameInput;
+
+    @FindBy(id = "password")
+    private WebElement passwordInput;
+
+    @FindBy(id = LOGIN_BUTTON_ID)
+    private WebElement loginButton;
+
+    @FindBy(css = "[data-test=error]")
+    private WebElement error;
 
     public LoginPage(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    public void open(){
-        driver.get(BASE_URL);
+    public By getLoginButtonLocator() {
+        return By.id(LOGIN_BUTTON_ID);
     }
 
-
-    public void login(String username, String password){
-
-        driver.findElement(USER_NAME_INPUT).sendKeys(username);
-        driver.findElement(PASSWORD_INPUT).sendKeys(password);
-        driver.findElement(LOGIN_BUTTON).submit();
+    public void open() {
+        driver.get(baseUrl);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(getLoginButtonLocator()));
     }
 
-    public void loginAsValidUser(){
-        login("standard_user","secret_sauce");
+    public void fillInUserName(String userName) {
+        userNameInput.sendKeys(userName);
     }
 
+    public void fillInPassword(String password) {
+        passwordInput.sendKeys(password);
+    }
 
-    public String getError(){
-       return driver.findElement(ERROR).getText();
+    public void submitForm() {
+        loginButton.submit();
+    }
+
+    public boolean isLoginButtonDisplayed() {
+        return loginButton.isDisplayed();
+    }
+
+    public String getError() {
+        return error.getText();
     }
 }
