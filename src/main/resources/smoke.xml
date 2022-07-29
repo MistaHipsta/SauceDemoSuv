@@ -5,6 +5,10 @@
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="org.example.CartTest"/>
+            <class name="org.example.CheckoutTest"/>
+            <class name="org.example.LoginTest"/>
+            <class name="org.example.LogoutTest"/>
+            <class name="org.example.ProductsTest"/>
         </classes>
     </test>
 </suite>
