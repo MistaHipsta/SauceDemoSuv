@@ -25,6 +25,7 @@
         <log4j.version>2.18.0</log4j.version>
         <jackson.dataformat.version>2.13.3</jackson.dataformat.version>
         <lombok.version>1.18.24</lombok.version>
+        <aspectj.version>1.9.9</aspectj.version>
     </properties>
 
     <dependencies>
@@ -119,9 +120,10 @@
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>
-                        <version>1.9.9.1</version>
+                        <version>${aspectj.version}</version>
                         <scope>runtime</scope>
                     </dependency>
+                    <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
 
                 </dependencies>
             </plugin>
