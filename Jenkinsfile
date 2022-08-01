@@ -6,11 +6,15 @@ pipeline {
         maven "M3"
     }
 
+    parameters {
+        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', description:'Select branch' name: 'BRANCH', type: 'PT_BRANCH'
+      }
+
     stages {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git branch: 'new_branch', url: 'https://github.com/MistaHipsta/SauceDemoSuv.git'
+                 git branch: "${params.BRANCH}", url: 'https://github.com/MistaHipsta/SauceDemoSuv.git'
 
                 // Run Maven on a Unix agent.
                 // sh "mvn -Dmaven.test.failure.ignore=true clean package"
