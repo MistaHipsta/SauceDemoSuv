@@ -12,7 +12,7 @@ pipeline {
       //}
 
             gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', description: 'Select branch to run tests', name: 'BRANCH', type: 'PT_BRANCH'
-            credentials credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: 'standard_user', name: 'CREDS', required: false
+            credentials credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: 'standard_user', name: 'Cred', required: false
         }
 
     stages {
