@@ -7,13 +7,17 @@ pipeline {
     }
 
     parameters {
+    //parameters {
+        //choice choices: ['smoke.xml', 'regression.xml'], name: 'TEST_SET'
+      //}
+
             gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', description: 'Select branch to run tests', name: 'BRANCH', type: 'PT_BRANCH'
         }
 
     stages {
         stage('Build') {
             steps {
-                // Get some code from a GitHub repository
+                 // Get some code from a GitHub repository
                  git branch: "${params.BRANCH}", url: 'https://github.com/MistaHipsta/SauceDemoSuv.git'
 
                 // Run Maven on a Unix agent.

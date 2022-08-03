@@ -1,11 +1,11 @@
 package org.example.steps;
 
+import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.example.pages.LoginPage;
-import org.example.utils.PropertiesLoader;
 import org.openqa.selenium.WebDriver;
 
-import java.util.Properties;
-
+@Log4j2
 public class LoginSteps {
 
     public static final String USERNAME = "username";
@@ -20,6 +20,7 @@ public class LoginSteps {
         loginPage = new LoginPage(webDriver);
     }
 
+    @Step("Login as {user} with {password}")
     public void login(String user, String password) {
         loginPage.open();
         loginPage.fillInUserName(user);
@@ -27,13 +28,16 @@ public class LoginSteps {
         loginPage.submitForm();
     }
 
+    @Step("Login as standard user")
     public void loginAsStandardUser() {
-        Properties properties = PropertiesLoader.loadProperties(STANDARD_USER_PROPERTIES);
-        login(properties.getProperty(USERNAME), properties.getProperty(PASSWORD));
+        String userName = System.getenv("username_var");
+        String password = System.getenv("password_var");
+        log.info("User is {}, password is {}", userName, password);
+        log.info("Test log");
+        login(userName, password);
     }
 
     public void loginAsDefaultUser() {
-        Properties properties = PropertiesLoader.loadProperties();
-        login(properties.getProperty(USERNAME), properties.getProperty(PASSWORD));
+        login(System.getenv("username_var"), System.getenv("password_var"));
     }
 }
